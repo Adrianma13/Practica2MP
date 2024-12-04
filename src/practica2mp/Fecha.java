@@ -57,7 +57,7 @@ public final class Fecha implements Cloneable, Proceso {
         return anio;
     }
     public Fecha diaSig(){
-       Fecha f = null;
+        Fecha f= new Fecha(dia+1,mes,anio);
         return f;
         
     }

@@ -66,16 +66,18 @@ public class Practica2MP {
         aux.setFecha(5, 5, 2005);
         aux = c1.getFechaAlta();
         aux.setFecha(7, 7, 2020);
+        
         c1.ver();
         c2.ver();
         c3.ver();
         c4.ver();
         if (c2.equals(c1) && c3.equals(c4)) {
+            System.out.println("asidufhaliuf");
             Cliente.setFechaPorDefecto(f3.diaSig());
         }
         System.out.print("Fecha alta por defecto: " + Cliente.getFechaPorDefecto() + "\n");
         Cliente[] c = new Cliente[6]; //array de 6 elementos de tipo Cliente
-        c[0] = new ClienteMovil("547B", "Bo Derek", fnac1, f3, f3, 50.50f, 0.03f);
+        c[0] = new ClienteMovil("547B", "Bo Derek", fnac1, f3, f3, 50.50f, 0.03f);//
         c[1] = new ClienteMovil("107J", "Messi", fnac2, 35.00f, 0.02f);
         ClienteMovil cm = (ClienteMovil) c[1].clone();
         c[2] = cm;
@@ -107,7 +109,4 @@ public class Practica2MP {
             System.out.println("c[4] y c3 no son iguales (mismo dni pero distinto tipo)");
         }
     }
-
-*/
-
 }

@@ -14,11 +14,20 @@ private float minutoshablados;
 private Fecha Permanencia;
    
 
-    public ClienteMovil(String nif, String nombre, Fecha fnac, Fecha fAlta, Fecha f30,float preciom, float minutoshablados, Fecha Permanencia) {
+  
+    public ClienteMovil(String nif, String nombre, Fecha fnac, Fecha fAlta, Fecha f30,float preciom, float minutoshablados) {
         super(nif,nombre,fnac,fAlta);
         this.preciom = preciom;
         this.minutoshablados = minutoshablados;
-        this.Permanencia = (Fecha) Permanencia.clone();
+        this.Permanencia = fAlta;  
+    }
+
+ 
+    public ClienteMovil(String nif, String nombre, Fecha fnac, float preciom, float minutoshablados) {
+        super(nif,nombre,fnac);
+         this.preciom = preciom;
+        this.minutoshablados = minutoshablados;
+        
     }
 
   
@@ -29,7 +38,7 @@ private Fecha Permanencia;
 
     public Fecha getFPermanencia() {
       
-    return null;
+    return Permanencia;
       
     }
 
