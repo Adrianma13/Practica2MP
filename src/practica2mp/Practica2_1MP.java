@@ -8,7 +8,7 @@ package practica2mp;
  *
  * @author usuario
  */
-public class Practica2MP {
+public class Practica2_1MP {
 
     /**
      * @param args the command line arguments
@@ -72,7 +72,6 @@ public class Practica2MP {
         c3.ver();
         c4.ver();
         if (c2.equals(c1) && c3.equals(c4)) {
-            System.out.println("asidufhaliuf");
             Cliente.setFechaPorDefecto(f3.diaSig());
         }
         System.out.print("Fecha alta por defecto: " + Cliente.getFechaPorDefecto() + "\n");

@@ -8,44 +8,69 @@ package practica2mp;
  *
  * @author usuario
  */
-public class ClienteMovil extends Cliente{
-private float preciom;
-private float minutoshablados;
-private Fecha Permanencia;
-   
+public class ClienteMovil extends Cliente {
+	private float minutosHablados;
+	private float precio;
+	private final Fecha permanencia;
+	
+	public ClienteMovil(String NIF, String nom, Fecha fNac, Fecha fAlta, Fecha perm, float minhab, float prec) {
+		super(NIF,nom,fNac,fAlta);
+		permanencia=perm;
+		minutosHablados=minhab;
+		precio=prec;
+	}
 
-  
-    public ClienteMovil(String nif, String nombre, Fecha fnac, Fecha fAlta, Fecha f30,float preciom, float minutoshablados) {
-        super(nif,nombre,fnac,fAlta);
-        this.preciom = preciom;
-        this.minutoshablados = minutoshablados;
-        this.Permanencia = fAlta;  
-    }
-
- 
-    public ClienteMovil(String nif, String nombre, Fecha fnac, float preciom, float minutoshablados) {
-        super(nif,nombre,fnac);
-         this.preciom = preciom;
-        this.minutoshablados = minutoshablados;
-        
-    }
-
-  
-
-    public void setFPermanencia(Fecha f1) {
-      Permanencia=(Fecha) f1.clone();
-    }
-
-    public Fecha getFPermanencia() {
-      
-    return Permanencia;
-      
-    }
-
-    public void ver() {
-        
-    }
-
-   
-    
+	public ClienteMovil(String NIF, String nom, Fecha fNac, float minhab, float prec) {
+		super(NIF,nom,fNac);
+		permanencia=getFechaPorDefecto();
+		permanencia.setFecha(permanencia.getDia(), permanencia.getMes(), permanencia.getAnio()+1);
+		minutosHablados=minhab;
+		precio=prec;
+	}
+	
+	public ClienteMovil(ClienteMovil c) {
+		super(c.getNif(),c.getNombre(),c.getFechaNac(),c.getFechaAlta());
+		permanencia=c.getFPermanencia();
+		minutosHablados=c.minutosHablados;
+		precio=c.precio;
+	}
+	
+	public Fecha getFPermanencia() {
+		Fecha f=new Fecha(permanencia);
+		return f;
+	}
+	
+	public void setFPermanencia(Fecha f) {
+		permanencia.setFecha(permanencia.getDia(), permanencia.getMes(), permanencia.getAnio());
+	}
+	
+	public float getPrecioMinuto() {
+		return precio;
+	}
+	
+	public void setPrecioMinuto(float prec) {
+		precio=prec;
+	}
+	
+	public float factura() {
+		float fac=minutosHablados*precio;
+		return fac;
+	}
+	
+	public boolean equals(Object obj) {
+		boolean igual=false;
+		if(super.equals(obj)&&obj.getClass()==this.getClass())
+				igual=true;
+		return igual;
+	}
+	
+	public String toString() {
+		String cad=super.toString()+" "+permanencia+" "+minutosHablados+ " x "+precio + " --> "+factura();
+		return cad;
+	}
+	
+	public Object clone() {
+		ClienteMovil c= new ClienteMovil(this);
+		return c;
+	}
 }

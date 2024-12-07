@@ -12,6 +12,16 @@ public final class Fecha implements Cloneable, Proceso {
     private int mes;
     private int anio;
 
+    public Fecha(int dia, int mes, int anio) {
+        setFecha(dia, mes, anio);
+    }
+
+    public Fecha(Fecha f) {
+        dia = f.dia;
+        mes = f.mes;
+        anio = f.anio;
+    }
+
     public void setFecha(int d, int m, int a) {
         int dmax, diaMes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         anio = a; //VIP debo asignar año para al llamar a bisiesto() tengo el año bien
@@ -35,16 +45,6 @@ public final class Fecha implements Cloneable, Proceso {
         mes = m;
     }
 
-    public Fecha(int dia, int mes, int anio) {
-        setFecha(dia, mes, anio);
-    }
-
-    public Fecha(Fecha f) {
-        dia = f.dia;
-        mes = f.mes;
-        anio = f.anio;
-    }
-
     public int getDia() {
         return dia;
     }
@@ -56,60 +56,85 @@ public final class Fecha implements Cloneable, Proceso {
     public int getAnio() {
         return anio;
     }
-    public Fecha diaSig(){
-        Fecha f= new Fecha(dia+1,mes,anio);
-        return f;
-        
+
+    public String toString() {
+        String s = "";
+        if (dia < 10) {
+            s = s + 0;
+        }
+        s = s + dia + "/";
+        if (mes < 10) {
+            s = s + 0;
+        }
+        s = s + mes + "/" + anio;
+        return s;
+        //LO ANTERIOR SE PUEDE SUSTITUIR POR LO SIGUIENTE
+        //return String.format("%02d/%02d/%02d", dia, mes, anio);
     }
+
+    public boolean bisiesto() {
+        boolean b = false;
+        if (anio % 4 == 0) {
+            b = true;
+            if (anio % 100 == 0 && anio % 400 != 0) {
+                b = false;
+            }
+        }
+        return b;
+    }
+
+    public void ver() {
+        System.out.println(this/*.toString()*/);
+    }
+
     public static Fecha pedirFecha() {
         Fecha fecha = null;
         boolean valida = false;
-        try (Scanner sc = new Scanner(System.in)) {
-            int dia, mes, anio;
-            do {
-                System.out.println("Introduce la Fecha (dd/mm/aaaa): ");
-                String cadena = sc.next();
-                String[] tokens = cadena.split("/");
-                try {
-                    if (tokens.length != 3) {
-                        throw new NumberFormatException();
-                    }
-                    dia = Integer.parseInt(tokens[0]); //parseInt lanza la excepcion
-                    mes = Integer.parseInt(tokens[1]); //NumberFormatException si no
-                    anio = Integer.parseInt(tokens[2]);//puede convertir el String a int
-                    fecha = new Fecha(dia, mes, anio);
-                    if (fecha.getDia() != dia || fecha.getMes() != mes) {
-                        throw new NumberFormatException();
-                    }
-                    valida = true;
-                } catch (NumberFormatException e) {
-                    System.out.println("Fecha no valida");
+        Scanner sc = new Scanner(System.in);
+        int dia, mes, anio;
+        do {
+            System.out.println("Introduce la Fecha (dd/mm/aaaa): ");
+            String cadena = sc.next();
+            String[] tokens = cadena.split("/");
+            try {
+                if (tokens.length != 3) {
+                    throw new NumberFormatException();
                 }
-            } while (!valida);
-        }
+                dia = Integer.parseInt(tokens[0]); //parseInt lanza la excepcion
+                mes = Integer.parseInt(tokens[1]); //NumberFormatException si no
+                anio = Integer.parseInt(tokens[2]);//puede convertir el String a int
+                fecha = new Fecha(dia, mes, anio);
+                if (fecha.getDia() != dia || fecha.getMes() != mes) {
+                    throw new NumberFormatException();
+                }
+                valida = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Fecha no valida");
+            }
+        } while (!valida);
         return fecha;
     }
 
     static public boolean mayor(Fecha f1, Fecha f2) {
         /*
-boolean esmayor=false;
-if (f1.anio>f2.anio)
-esmayor= true;
-else if (f1.anio<f2.anio)
-esmayor= false;
-else {
-if (f1.mes>f2.mes)
-esmayor= true;
-else if (f1.mes<f2.mes)
-esmayor= false;
-else {
-if (f1.dia>f2.dia)
-esmayor= true;
-else
-esmayor= false;
-}
-}
-return esmayor;
+		boolean esmayor=false;
+		if (f1.anio>f2.anio)
+		esmayor= true;
+		else if (f1.anio<f2.anio)
+		esmayor= false;
+		else {
+		if (f1.mes>f2.mes)
+		esmayor= true;
+		else if (f1.mes<f2.mes)
+		esmayor= false;
+		else {
+		if (f1.dia>f2.dia)
+		esmayor= true;
+		else
+		esmayor= false;
+		}
+		}
+		return esmayor;
          */
         if (f1.anio * 10000 + f1.mes * 100 + f1.dia > f2.anio * 10000 + f2.mes * 100 + f2.dia) {
             return true;
@@ -118,20 +143,18 @@ return esmayor;
         }
     }
 
-    @Override
     public Object clone() {
-//return new Fecha(this);
+        //return new Fecha(this);
         Object obj = null;
         try {
             obj = super.clone(); //se llama al clone() de la clase base (Object)
-//que hace copia binaria de los atributos
+            //que hace copia binaria de los atributos
         } catch (CloneNotSupportedException ex) {
             System.out.println(" no se puede duplicar");
         }
         return obj;
     }
 
-    @Override
     public boolean equals(Object obj) { //true sin son iguales
         if (this == obj) {
             return true; //si apuntan al mismo sitio son iguales
@@ -147,36 +170,22 @@ return esmayor;
         return (dia == c.dia && mes == c.mes && anio == c.anio);
     }
 
-    @Override
-    public String toString() {
-        String s = "";
-        if (dia < 10) {
-            s = s + 0;
+    public Fecha diaSig() {
+        Fecha f = new Fecha(this);
+        f.dia++;
+        int diaMes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (bisiesto()) {
+            diaMes[1] = 29;
         }
-        s = s + dia + "/";
-        if (mes < 10) {
-            s = s + 0;
-        }
-        s = s + mes + "/" + anio;
-        return s;
-//LO ANTERIOR SE PUEDE SUSTITUIR POR LO SIGUIENTE
-//return String.format("%02d/%02d/%02d", dia, mes, anio);
-    }
-
-    public boolean bisiesto() {
-        boolean b = false;
-        if (anio % 4 == 0) {
-            b = true;
-            if (anio % 100 == 0 && anio % 400 != 0) {
-                b = false;
+        if (f.dia > diaMes[f.mes - 1]) {
+            f.dia = 1;
+            f.mes++;
+            if (f.mes > 12) {
+                f.mes = 1;
+                f.anio++;
             }
         }
-        return b;
-    }
-
-    @Override
-    public void ver() {
-        System.out.println(this/*.toString()*/);
+        return f;
     }
 
 }

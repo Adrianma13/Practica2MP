@@ -9,53 +9,87 @@ package practica2mp;
  * @author usuario
  */
 public class ClienteTarifaPlana extends Cliente {
-    private String nacionalidad;
-    private float tarifa=20;
-    private float minutoshablados;
-    private final float pexceso = (float) 0.15;
-
-    public static void setTarifa(int i, float f) {
-       
-    }
-
-    public static String getLimite() {
-        
-        return null;
-        
-    }
-
-    public static String getTarifa() {
-        
-        return null;
-        
-    }
-    public ClienteTarifaPlana(String nif, String nombre, Fecha fnac,Fecha fechaAlta, float tarifa, String nacionalidad) {
-        super(nif,nombre,fnac,fechaAlta);
-        this.tarifa=tarifa;
-        this.nacionalidad=nacionalidad;
-    }
-    public ClienteTarifaPlana(String nif, String nombre, Fecha fnac, float tarifa, String nacionalidad) {
-        super(nif,nombre,fnac);
-        this.tarifa=tarifa;
-        this.nacionalidad=nacionalidad;
-    }
-
-    public void setNombre(String pepe) {
-        
-    
-        
-    }
-
-    public void setNacionalidad(String india) {
- 
-    }
-
-    public void setMinutos(int i) {
-
-    }
-
-    public void ver() {
-      
-    }
-    
+	private String nacionalidad;
+	private float minutosHablados;
+	private final float precioexc=0.15f;
+	private static float precioTarifa=20f;
+	private static float minutos=300f;
+	
+	public ClienteTarifaPlana(String NIF, String nom, Fecha fNac, Fecha fAlta, float minhab, String nac) {
+		super(NIF, nom, fNac, fAlta);
+		nacionalidad=nac;
+		minutosHablados=minhab;
+	}
+	
+	public ClienteTarifaPlana(String NIF, String nom, Fecha fNac,float minhab, String nac) {
+		super(NIF, nom, fNac);
+		nacionalidad=nac;
+		minutosHablados=minhab;
+	}
+	
+	public ClienteTarifaPlana(ClienteTarifaPlana c) {
+		super(c.getNif(),c.getNombre(),c.getFechaNac(),c.getFechaAlta());
+		nacionalidad=c.nacionalidad;
+		minutosHablados=c.minutosHablados;
+	}
+	
+	public float factura() {
+		float factura;
+		if(minutosHablados<=minutos)
+			factura=precioTarifa;
+		else
+		{
+			float min;
+			min=minutosHablados-minutos;
+			factura=precioTarifa+(min*precioexc);
+		}
+		return factura;
+	}
+	
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+	
+	public void setNacionalidad(String nac) {
+		nacionalidad=nac;
+	}
+	
+	public float getMinutos() {
+		return minutosHablados;
+	}
+	
+	public void setMinutos(float min) {
+		minutosHablados=min; 
+	}
+	
+	public static float getTarifa() {
+		return precioTarifa;
+	}
+	
+	public static void setTarifa(float min, float prec) {
+		minutos=min;
+		precioTarifa=prec;
+	}
+	
+	public static float getLimite() {
+		return minutos;
+	}
+	
+	
+	public boolean equals(Object obj) {
+		boolean igual=false;
+		if(super.equals(obj)&&obj.getClass()==this.getClass())
+				igual=true;
+		return igual;
+	}
+	
+	public String toString() {
+		String cad=super.toString()+" "+nacionalidad+" ["+minutos+ " por "+precioTarifa + "] "+minutosHablados+ " --> "+factura();
+		return cad;
+	}
+	
+	public Object clone() {
+		ClienteTarifaPlana c= new ClienteTarifaPlana(this);
+		return c;
+	}
 }
