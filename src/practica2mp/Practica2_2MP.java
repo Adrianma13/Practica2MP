@@ -13,14 +13,16 @@ public class Practica2_2MP {
 		Fecha f1=new Fecha(29,2,2001), f2= new Fecha(f1), f3=new Fecha(29,2,2004);
 		Fecha fnac1 = new Fecha(7,3,1980), fnac2 = new Fecha(27,06,1995);
 		System.out.println("Fechas:" + f1 + ", " + f2 + ", " + f3);
-		ClienteTarifaPlana [] ct= new ClienteTarifaPlana[4];
+		ClienteTarifaPlana [] ct= new ClienteTarifaPlana[5];
 		ClienteMovil cm1 = new ClienteMovil("547B", "Luis Perez", fnac2, 50.50f, 0.03f);
 		ClienteMovil cm2 = (ClienteMovil) cm1.clone(); //lo crea con los mismos datos que cm1
 		ClienteMovil cm3 = new ClienteMovil("777F", "Joe Sam", fnac2.diaSig(), 50.50f, 0.02f);
+                ClienteMovil cm4 = new ClienteMovil("723F", "JorgeJavier", fnac2.diaSig(), 50.50f, 0.02f);
 		ct[0] = new ClienteTarifaPlana("805W","Luz Casal", fnac1, f3, 375.09f, "Española");
 		ct[1] = new ClienteTarifaPlana("953H","Paz Padilla", fnac2, f2, 290.00f, "Española");
 		ct[2] = new ClienteTarifaPlana("106T","Elton John", fnac2, 340.75f, "Inglesa");
 		ct[3] = new ClienteTarifaPlana("467X","Messi", fnac2.diaSig(), 300.00f, "Argentina");
+                ct[4] = new ClienteTarifaPlana("462X","Juanito", fnac2.diaSig(), 300.00f, "Alemania");
 		System.out.println("Codigos: " + cm1.getCodCliente() +", "+ cm2.getCodCliente() + ", "
 		+ ct[0].getCodCliente() +", "+ ct[2].getCodCliente() +"\n");
 		Empresa g=new Empresa(), gcopia;
@@ -43,5 +45,7 @@ public class Practica2_2MP {
 		System.out.println("g tiene " + g.getN() + " clientes y gcopia " + gcopia.getN());
 		System.out.print("g tiene " + g.nClienteMovil() + " clientes de Tarifa Movil ");
 		System.out.println("y " + (g.getN()-g.nClienteMovil()) + " de Tarifa Plana");
+          
+                
 		}
 }

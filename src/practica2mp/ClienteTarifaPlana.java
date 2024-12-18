@@ -6,7 +6,7 @@ package practica2mp;
 
 /**
  *
- * @author usuario
+ * @Adria 
  */
 public class ClienteTarifaPlana extends Cliente {
 	private String nacionalidad;

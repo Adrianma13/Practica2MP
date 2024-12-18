@@ -6,7 +6,7 @@ package practica2mp;
 
 /**
  *
- * @author usuario
+ * @author Adria
  */
 public class ClienteMovil extends Cliente {
 	private float minutosHablados;
